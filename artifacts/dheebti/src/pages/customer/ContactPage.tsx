@@ -37,7 +37,7 @@ export function ContactPage() {
                 </div>
                 <div>
                   <div className="text-xs text-muted-foreground">الهاتف</div>
-                  <div className="font-bold" dir="ltr">+971 50 000 0000</div>
+                  <div className="font-bold" dir="ltr">   8004499   </div>
                 </div>
               </div>
               <div className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4">
@@ -46,7 +46,7 @@ export function ContactPage() {
                 </div>
                 <div>
                   <div className="text-xs text-muted-foreground">البريد الإلكتروني</div>
-                  <div className="font-bold">info@bahrainlivestock.com</div>
+                  <div className="font-bold">info@mazzraty.com</div>
                 </div>
               </div>
               <div className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4">
