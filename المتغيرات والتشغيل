@@ -1,0 +1,25 @@
+APP_DATABASE_URL="postgresql://neondb_owner:npg_d5vJ4NnzGFiq@ep-green-recipe-ayv8drgw-pooler.c-5.us-east-2.aws.neon.tech/neondb?sslmode=require"
+CLERK_SECRET_KEY=sk_test_hgqGb7wof5nynrPQv8G7LvFirZj5YBLeniST8dSQde
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk-fbsvc@zabihte.iam.gserviceaccount.com
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----"
+FIREBASE_PRIVATE_KEY_ID=0a4b0071c4ba98cd2f5a7e2b82afc922f1cfc578
+FIREBASE_PROJECT_ID=zabihte
+SESSION_SECRET="wUm4kLlTnJtE34xa6LUBudyOVGxLK5qmK7xfvV+5ydKUSUTZx2+a/Sl4DsH1nKCKMSAjhEUWd9INNJbwIxfzMQ=="
+SUPABASE_SERVICE_ROLE_KEY=sb_publishable_kLZIZcgnzatIIUohfrzcNg_Jn8cOmUM
+SUPABASE_URL=https://qufhhvrvgbphlqskeyyj.supabase.co
+TELEGRAM_BOT_TOKEN=8889676845:AAGYcVFa7vOi_0FYgpq3WscOXKADANb-2TI
+TELEGRAM_CHAT_ID=8108427825
+VITE_CLERK_PUBLISHABLE_KEY=pk_test_bmljZS1oYWRkb2NrLTQ3LmNsZXJrLmFjY291bnRzLmZldiQ
+VITE_FIREBASE_API_KEY=AIzaSyBdNnIO4o1apFPBo8IaSYVHUuKKLtJ3Ln0
+VITE_FIREBASE_APP_ID=1:57398094197:web:944c6d0482009f48b0cb3c
+VITE_FIREBASE_AUTH_DOMAIN=zabihte.firebaseapp.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=57398094197
+VITE_FIREBASE_PROJECT_ID=zabihte
+VITE_FIREBASE_STORAGE_BUCKET=zabihte.firebasestorage.app
+VITE_FIREBASE_VAPID_KEY=BEl3uHdVKg8DgD6jP3MkgIAKIAc9-qIxoN5sAjZudbLh0YjThu20J33crEBrlez6RaLsIsFxL7vvVPu65CJQ54U
+VITE_FRONTEND_FORGE_API_URL=https://forge.manus.ai
+
+
+التشغيل على render 
+Build Command= pnpm install --frozen-lockfile && pnpm run build
+Start Command= pnpm start
