@@ -33,8 +33,8 @@ export function HomePage() {
       <section className="px-4 py-8 lg:px-8 lg:py-12">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="text-xl font-bold tracking-[-.04em]">المنتجات المتاحة</h2>
-            <p className="mt-1 text-xs text-muted-foreground">اختاروا من أفضل المواشي المتاحة</p>
+            <h2 className="text-xl font-bold tracking-[-.04em]">العروض المتاحة</h2>
+            <p className="mt-1 text-xs text-muted-foreground">اختاروا من أفضل العروض المتاحة</p>
           </div>
           <div className="relative">
             <Search size={15} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
