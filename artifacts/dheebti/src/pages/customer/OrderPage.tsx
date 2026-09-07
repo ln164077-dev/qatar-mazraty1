@@ -101,7 +101,7 @@ export function OrderPage() {
                 id="customer-name" 
                 value={customerName} 
                 onChange={e => setCustomerName(e.target.value)} 
-                placeholder="مثال: محمد أحمد" 
+                placeholder="  " 
                 data-testid="input-customer-name" 
                 className="mt-1.5 h-12 rounded-xl" 
                 required
@@ -116,7 +116,7 @@ export function OrderPage() {
                 inputMode="tel"
                 value={phone} 
                 onChange={e => setPhone(e.target.value)} 
-                placeholder="36 000 000" 
+                placeholder="  " 
                 dir="ltr" 
                 data-testid="input-customer-phone" 
                 className="mt-1.5 h-12 rounded-xl" 
