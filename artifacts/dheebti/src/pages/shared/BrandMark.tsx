@@ -11,7 +11,7 @@ export function BrandMark({ compact = false }: { compact?: boolean }) {
       </div>
       <div className="leading-tight">
         <div className={cn('text-[17px] font-bold tracking-[-.04em]', compact && 'text-[15px]')}>مزرعتي</div>
-        {!compact && <div className="mt-1 font-mono-bahrain text-[8px] uppercase text-muted-foreground" dir="ltr">MAWASHI / QA</div>}
+        {!compact && <div className="mt-1 font-mono-bahrain text-[8px] uppercase text-muted-foreground" dir="ltr">MAZRATY / QA</div>}
       </div>
     </div>
   );

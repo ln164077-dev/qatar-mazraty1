@@ -160,7 +160,7 @@ export function AdminLayout({ tab, setTab, children }: AdminLayoutProps) {
           <BrandMark compact />
           <div>
             <div className="font-mono-bahrain text-[9px] uppercase tracking-[.15em] text-muted-foreground" dir="ltr">
-              MAWASHI / ADMIN
+              MAZRATY / ADMIN
             </div>
             <h1 className="mt-1 text-base font-bold">{tabTitles[tab]}</h1>
           </div>

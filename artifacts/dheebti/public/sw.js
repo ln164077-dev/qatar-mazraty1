@@ -1,5 +1,5 @@
 // Service Worker for PWA
-const CACHE_NAME = 'mawashi-bahrain-v1';
+const CACHE_NAME = 'mazraty-qatar-v1';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
