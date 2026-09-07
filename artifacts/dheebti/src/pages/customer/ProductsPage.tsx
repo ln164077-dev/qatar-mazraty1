@@ -14,7 +14,7 @@ const fallbackSheep = 'https://images.unsplash.com/photo-1484557985045-edf25e08d
 
 // Prefer a configured URL, then use the image stored directly in Neon.
 function getProductImage(product: { imageUrl?: string; image?: string }): string {
-  return product.imageUrl || product.image || fallbackSheep;
+  return product.image || product.imageUrl || fallbackSheep;
 }
 
 export function ProductsPage() {

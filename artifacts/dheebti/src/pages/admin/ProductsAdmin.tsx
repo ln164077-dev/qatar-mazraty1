@@ -29,7 +29,7 @@ const API_URL = import.meta.env.VITE_API_URL || '';
 
 // Get product image - prefers imageUrl, falls back to base64 image
 function getProductImage(product: { imageUrl?: string; image?: string }): string {
-  return product.imageUrl || product.image || fallbackSheep;
+  return product.image || product.imageUrl || fallbackSheep;
 }
 
 // Convert file to base64
