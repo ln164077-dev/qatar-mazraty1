@@ -11,7 +11,7 @@ function money(value: number) {
   return `${value.toFixed(0)} درهم`;
 }
 
-// Get product image - prefers imageUrl (Supabase), falls back to base64 image
+// Prefer a configured URL, then use the image stored directly in Neon.
 function getProductImage(product: { imageUrl?: string; image?: string }): string {
   return product.imageUrl || product.image || fallbackSheep;
 }

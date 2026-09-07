@@ -12,7 +12,7 @@ function money(value: number) {
 
 const fallbackSheep = 'https://images.unsplash.com/photo-1484557985045-edf25e08da73?auto=format&fit=crop&w=900&q=82';
 
-// Get product image - prefers imageUrl (Supabase), falls back to base64 image
+// Prefer a configured URL, then use the image stored directly in Neon.
 function getProductImage(product: { imageUrl?: string; image?: string }): string {
   return product.imageUrl || product.image || fallbackSheep;
 }

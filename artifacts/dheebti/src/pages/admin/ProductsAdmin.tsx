@@ -12,7 +12,6 @@ import {
   Save, 
   X,
   Upload,
-  Image as ImageIcon,
   Trash2
 } from 'lucide-react';
 import { LoadingBlock, ErrorBlock } from '../shared';
@@ -41,22 +40,6 @@ function fileToBase64(file: File): Promise<string> {
     reader.onload = () => resolve(reader.result as string);
     reader.onerror = reject;
   });
-}
-
-// Upload image to Supabase Storage
-async function uploadImageToSupabase(base64Image: string): Promise<string> {
-  const response = await fetch(`${API_URL}/api/admin/upload-image`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ image: base64Image }),
-  });
-  
-  if (!response.ok) {
-    throw new Error('Failed to upload image');
-  }
-  
-  const data = await response.json();
-  return data.imageUrl;
 }
 
 // Extended ProductInput with image field
@@ -110,11 +93,9 @@ function ProductEditor({
     try {
       setUploadingImage(true);
       const base64 = await fileToBase64(file);
-      // Upload to Supabase and get URL
-      const imageUrl = await uploadImageToSupabase(base64);
-      change('imageUrl', imageUrl);
-      // Clear base64 image
-      change('image', undefined);
+      // Store the image directly in Neon as Base64; no external storage service is used.
+      change('image', base64);
+      change('imageUrl', '');
     } catch (error) {
       alert('فشل في رفع الصورة');
     } finally {
@@ -135,7 +116,6 @@ function ProductEditor({
     try {
       const dataToSave = {
         ...form,
-        image: undefined, // Don't send base64 anymore
       };
       
       if (product) {
