@@ -34,7 +34,7 @@ async function initializeDefaultAdmin() {
   }
 }
 
-const rawPort = process.env["PORT"];
+const rawPort = process.env["PORT"] || "3000";
 
 if (!rawPort) {
   throw new Error(
