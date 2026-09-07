@@ -105,7 +105,7 @@ export function Shell({ children, showSidebar = false }: { children: React.React
           <div className="grid gap-8 md:grid-cols-3">
             <div>
               <BrandMark />
-              <p className="mt-4 text-xs text-muted-foreground">ذبيحتي - أفضل أنواع المواشي الطازجة من المزرعة إلى بابكم.</p>
+              <p className="mt-4 text-xs text-muted-foreground">مزرعتي - أفضل أنواع المواشي الطازجة من المزرعة إلى بابكم.</p>
             </div>
             <div>
               <h3 className="font-bold">روابط سريعة</h3>
@@ -121,12 +121,12 @@ export function Shell({ children, showSidebar = false }: { children: React.React
               <div className="mt-3 space-y-2 text-xs text-muted-foreground">
                 <p>📞 +971 50 000 0000</p>
                 <p>✉️ info@bahrainlivestock.com</p>
-                <p>📍 مملكة الإمارات</p>
+                <p>📍 دولة قطر</p>
               </div>
             </div>
           </div>
           <div className="mt-8 border-t border-border pt-6 text-center text-[10px] text-muted-foreground">
-            © 2024 ذبيحتي. جميع الحقوق محفوظة.
+            © 2024 مزرعتي. جميع الحقوق محفوظة.
           </div>
         </div>
       </footer>

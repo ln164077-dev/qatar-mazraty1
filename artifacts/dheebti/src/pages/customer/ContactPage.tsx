@@ -55,7 +55,7 @@ export function ContactPage() {
                 </div>
                 <div>
                   <div className="text-xs text-muted-foreground">العنوان</div>
-                  <div className="font-bold">مملكة الإمارات</div>
+                  <div className="font-bold">دولة قطر</div>
                 </div>
               </div>
             </div>

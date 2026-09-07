@@ -137,7 +137,7 @@ function ProductEditor({
       <div className="mb-6 flex items-center justify-between">
         <div>
           <h2 className="text-sm font-bold">{product ? 'تعديل المنتج' : 'إضافة منتج'}</h2>
-          <p className="mt-1 text-[10px] text-muted-foreground">كل التفاصيل التي يراها أهل الإمارات</p>
+          <p className="mt-1 text-[10px] text-muted-foreground">كل التفاصيل التي يراها أهل قطر</p>
         </div>
         <button type="button" onClick={onDone}>
           <X size={18} />
@@ -251,7 +251,7 @@ function ProductEditor({
         </div>
         
         <div>
-          <Label className="text-xs">السعر بالدرهم</Label>
+          <Label className="text-xs">السعر بالريال القطري</Label>
           <Input 
             type="number" 
             min="0" 
@@ -383,7 +383,7 @@ export function ProductsAdmin() {
                     <p className="mt-1 line-clamp-2 text-[10px] leading-5 text-muted-foreground">{product.description}</p>
                   </div>
                   <span className="font-mono-bahrain text-xs text-primary" dir="ltr">
-                    {product.price.toFixed(0)} درهم
+                    {product.price.toFixed(0)} ريال قطري
                   </span>
                 </div>
                 <div className="mt-4 flex items-center gap-2 border-t border-border pt-3">

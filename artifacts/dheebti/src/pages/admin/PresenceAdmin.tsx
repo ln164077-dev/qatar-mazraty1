@@ -52,7 +52,7 @@ export function PresenceAdmin() {
               <div className="mt-5 flex items-center justify-between border-t border-border pt-3 text-[10px] text-muted-foreground">
                 <span>{p.page}</span>
                 <span dir="ltr">
-                  {new Date(p.lastSeenAt).toLocaleTimeString('ar-BH', { hour: '2-digit', minute: '2-digit' })}
+                  {new Date(p.lastSeenAt).toLocaleTimeString('ar-QA', { hour: '2-digit', minute: '2-digit' })}
                 </span>
               </div>
             </div>
