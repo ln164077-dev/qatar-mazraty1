@@ -1,5 +1,13 @@
 {
   "version": "7",
   "dialect": "mysql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1788752647906,
+      "tag": "0000_jazzy_ted_forrester",
+      "breakpoints": true
+    }
+  ]
 }
