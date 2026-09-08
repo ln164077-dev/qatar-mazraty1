@@ -10,7 +10,6 @@ export interface ProductInput {
   /** @minLength 1 */
   name: string;
   description: string;
-  badge?: string | null;
   imageUrl: string;
   /**
      * @minimum 1

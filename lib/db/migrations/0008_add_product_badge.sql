@@ -1,2 +1,0 @@
-ALTER TABLE dheebti_products
-ADD COLUMN IF NOT EXISTS badge TEXT;

@@ -61,7 +61,6 @@ function ProductEditor({
   const [form, setForm] = useState<ProductFormData>({
     name: product?.name || '',
     description: product?.description || '',
-    badge: product?.badge || '',
     imageUrl: product?.imageUrl || '',
     image: product?.image || undefined,
     maxQuantity: product?.maxQuantity || 10,
@@ -166,18 +165,6 @@ function ProductEditor({
         </div>
         
         {/* Image Upload Section */}
-        <div className="sm:col-span-2">
-          <Label className="text-xs">التسمية المميزة (اختياري)</Label>
-          <Input
-            value={form.badge || ''}
-            onChange={e => change('badge', e.target.value)}
-            placeholder="مثال: قارب على الانتهاء"
-            data-testid="input-admin-product-badge"
-            className="mt-2 h-11 rounded-xl"
-          />
-          <p className="mt-1 text-[10px] text-muted-foreground">إذا تُركت فارغة سيظهر وسم «طازج» تلقائيًا.</p>
-        </div>
-
         <div className="sm:col-span-2">
           <Label className="text-xs">صورة المنتج</Label>
           <div className="mt-2 space-y-3">

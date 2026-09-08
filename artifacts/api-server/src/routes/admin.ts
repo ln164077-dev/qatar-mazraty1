@@ -550,7 +550,6 @@ router.post("/admin/products", async (req, res, next) => {
       .values({
         name: body.name,
         description: body.description,
-        badge: body.badge || null,
         imageUrl: body.imageUrl,
         image: body.image || null, // Store Base64 image
         maxQuantity: body.maxQuantity,
@@ -576,7 +575,6 @@ router.patch("/admin/products/:id", async (req, res, next) => {
     const updateValues = {
       ...(body.name !== undefined ? { name: body.name } : {}),
       ...(body.description !== undefined ? { description: body.description } : {}),
-      ...(body.badge !== undefined ? { badge: body.badge || null } : {}),
       ...(body.imageUrl !== undefined ? { imageUrl: body.imageUrl } : {}),
       ...(body.image !== undefined ? { image: body.image || null } : {}),
       ...(body.maxQuantity !== undefined ? { maxQuantity: body.maxQuantity } : {}),

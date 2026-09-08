@@ -7,7 +7,6 @@ export function mapProductRow(product: DbProduct) {
     id: product.id,
     name: product.name,
     description: product.description,
-    badge: product.badge || undefined,
     imageUrl: product.imageUrl,
     image: product.image || undefined, // Base64 image
     maxQuantity: product.maxQuantity,

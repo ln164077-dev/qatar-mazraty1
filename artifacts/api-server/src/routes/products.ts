@@ -12,7 +12,6 @@ router.get("/products", async (_req, res, next) => {
         id: productsTable.id,
         name: productsTable.name,
         description: productsTable.description,
-        badge: productsTable.badge,
         imageUrl: productsTable.imageUrl,
         image: productsTable.image,
         maxQuantity: productsTable.maxQuantity,
