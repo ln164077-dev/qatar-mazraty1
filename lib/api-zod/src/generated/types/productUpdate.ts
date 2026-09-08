@@ -10,6 +10,7 @@ export interface ProductUpdate {
   /** @minLength 1 */
   name?: string;
   description?: string;
+  badge?: string | null;
   imageUrl?: string;
   /**
      * @minimum 1

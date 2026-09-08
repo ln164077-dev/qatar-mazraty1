@@ -54,7 +54,7 @@ export function ProductsPage() {
                     className="size-full object-cover transition duration-700 group-hover:scale-105" 
                   />
                   <div className="absolute inset-x-3 top-3 flex items-start justify-between">
-                    <span className="rounded-full bg-card/90 px-3 py-1.5 text-[9px] font-bold text-secondary backdrop-blur">طازج اليوم</span>
+                    <span className={`rounded-full px-3 py-1.5 text-[9px] font-bold backdrop-blur ${product.badge ? 'bg-red-600 text-white' : 'bg-card/90 text-secondary'}`}>{product.badge || 'طازج اليوم'}</span>
                     <span className="grid size-8 place-items-center rounded-full bg-card/85 text-primary opacity-0 shadow-sm backdrop-blur transition group-hover:opacity-100">
                       <ArrowLeft size={14} />
                     </span>

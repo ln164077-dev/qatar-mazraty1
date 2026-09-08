@@ -194,6 +194,7 @@ export const createProductBodyPriceMin = 0;
 export const CreateProductBody = zod.object({
   "name": zod.string().min(1),
   "description": zod.string(),
+  "badge": zod.string().nullish(),
   "imageUrl": zod.string(),
   "image": zod.string().optional(), // Base64 image data
   "maxQuantity": zod.number().min(1).max(createProductBodyMaxQuantityMax),
@@ -205,6 +206,7 @@ export const CreateProductResponse = zod.object({
   "id": zod.number(),
   "name": zod.string(),
   "description": zod.string(),
+  "badge": zod.string().nullish(),
   "imageUrl": zod.string(),
   "image": zod.string().optional(),
   "maxQuantity": zod.number(),
@@ -230,6 +232,7 @@ export const updateProductBodyPriceMin = 0;
 export const UpdateProductBody = zod.object({
   "name": zod.string().min(1).optional(),
   "description": zod.string().optional(),
+  "badge": zod.string().nullish(),
   "imageUrl": zod.string().optional(),
   "image": zod.string().optional(), // Base64 image data
   "maxQuantity": zod.number().min(1).max(updateProductBodyMaxQuantityMax).optional(),
@@ -241,6 +244,7 @@ export const UpdateProductResponse = zod.object({
   "id": zod.number(),
   "name": zod.string(),
   "description": zod.string(),
+  "badge": zod.string().nullish(),
   "imageUrl": zod.string(),
   "image": zod.string().optional(),
   "maxQuantity": zod.number(),
@@ -297,5 +301,4 @@ export const UpdatePresenceBody = zod.object({
 })
 
 export const UpdatePresenceResponse = zod.void()
-
 

@@ -16,6 +16,7 @@ export const productsTable = pgTable("dheebti_products", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   description: text("description").notNull(),
+  badge: text("badge"),
   imageUrl: text("image_url").notNull(),
   image: text("image"), // Base64 image data
   maxQuantity: integer("max_quantity").notNull().default(10),

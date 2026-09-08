@@ -72,8 +72,8 @@ export function ProductDetailPage() {
               className="aspect-square size-full object-cover" 
             />
             <div className="absolute inset-x-3 top-3 flex gap-2">
-              <span className="rounded-full bg-accent px-4 py-2 text-xs font-bold text-secondary backdrop-blur">
-                طازج اليوم
+              <span className={`rounded-full px-4 py-2 text-xs font-bold backdrop-blur ${product.badge ? 'bg-red-600 text-white' : 'bg-accent text-secondary'}`}>
+                {product.badge || 'طازج اليوم'}
               </span>
             </div>
           </div>

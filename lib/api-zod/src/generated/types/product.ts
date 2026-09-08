@@ -10,6 +10,7 @@ export interface Product {
   id: number;
   name: string;
   description: string;
+  badge?: string | null;
   imageUrl: string;
   maxQuantity: number;
   price: number;

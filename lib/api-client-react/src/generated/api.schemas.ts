@@ -13,6 +13,7 @@ export interface Product {
   id: number;
   name: string;
   description: string;
+  badge?: string | null;
   imageUrl: string;
   image?: string;
   maxQuantity: number;
@@ -24,6 +25,7 @@ export interface ProductInput {
   /** @minLength 1 */
   name: string;
   description: string;
+  badge?: string | null;
   imageUrl: string;
   image?: string;
   /**
@@ -40,6 +42,7 @@ export interface ProductUpdate {
   /** @minLength 1 */
   name?: string;
   description?: string;
+  badge?: string | null;
   imageUrl?: string;
   image?: string;
   /**
@@ -231,4 +234,3 @@ export interface Presence {
   lastSeenAt: string;
   active: boolean;
 }
-
