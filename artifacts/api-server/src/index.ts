@@ -4,7 +4,7 @@ import crypto from "crypto";
 import app from "./app";
 import { logger } from "./lib/logger";
 import { presenceManager } from "./websocket/manager";
-import { db, pool, adminTable } from "@workspace/db";
+import { db, adminTable } from "@workspace/db";
 
 // Default admin credentials
 const DEFAULT_ADMIN_EMAIL = "admin.admin@gmail.com";
@@ -13,14 +13,6 @@ const DEFAULT_ADMIN_PASSWORD = "admin123";
 // Hash password using SHA-256
 function hashPassword(password: string): string {
   return crypto.createHash('sha256').update(password).digest('hex');
-}
-
-// Keep production databases compatible when the hosting platform does not run migrations.
-async function ensureProductBadgeColumn() {
-  await pool.query(`
-    ALTER TABLE dheebti_products
-    ADD COLUMN IF NOT EXISTS badge TEXT
-  `);
 }
 
 // Initialize default admin if not exists
@@ -145,7 +137,6 @@ wss.on("connection", (ws: WebSocket, req) => {
 // Start server after initializing default admin
 async function startServer() {
   try {
-    await ensureProductBadgeColumn();
     // Initialize default admin on startup
     await initializeDefaultAdmin();
     
