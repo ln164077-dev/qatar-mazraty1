@@ -53,7 +53,7 @@ export function ProductCard({ product, compact = false }: ProductCardProps) {
             alt={product.name} 
             className="size-full object-cover transition duration-500 group-hover:scale-105" 
           />
-          <span className="absolute right-2 top-2 rounded-full bg-accent px-2 py-0.5 text-[8px] font-bold text-secondary">طازج</span>
+          <span className="absolute right-2 top-2 rounded-full bg-accent px-2 py-0.5 text-[8px] font-bold text-secondary">{product.id === 32 ? 'قارب على الانتهاء' : 'طازج'}</span>
         </div>
         <div className="mt-2 flex-1">
           <h3 className="line-clamp-1 text-xs font-bold">{product.name}</h3>
@@ -87,7 +87,7 @@ export function ProductCard({ product, compact = false }: ProductCardProps) {
           alt={product.name} 
           className="size-full object-cover transition duration-700 group-hover:scale-105" 
         />
-        <span className="absolute right-2 top-2 rounded-full bg-accent px-2 py-1 text-[8px] font-bold text-secondary">طازج</span>
+        <span className="absolute right-2 top-2 rounded-full bg-accent px-2 py-1 text-[8px] font-bold text-secondary">{product.id === 32 ? 'قارب على الانتهاء' : 'طازج'}</span>
       </div>
 
       {/* Card Content */}
