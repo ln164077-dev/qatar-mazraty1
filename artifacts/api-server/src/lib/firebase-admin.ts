@@ -27,19 +27,19 @@ function getPrivateKey(): string {
 // Firebase Admin configuration from environment variables
 const firebaseConfig = {
   type: "service_account",
-  project_id: process.env.FIREBASE_PROJECT_ID || "zabihte",
-  private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID || "0a4b0071c4ba98cd2f5a7e2b82afc922f1cfc578",
+  project_id: process.env.FIREBASE_PROJECT_ID || "",
+  private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID || "",
   private_key: getPrivateKey(),
-  client_email: process.env.FIREBASE_CLIENT_EMAIL || "firebase-adminsdk-fbsvc@zabihte.iam.gserviceaccount.com",
+  client_email: process.env.FIREBASE_CLIENT_EMAIL || "",
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
   token_uri: "https://oauth2.googleapis.com/token",
   auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-  client_x509_cert_url: "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40zabihte.iam.gserviceaccount.com",
+  client_x509_cert_url: "",
   universe_domain: "googleapis.com"
 };
 
 // VAPID Key
-export const VAPID_KEY = "BGKlH7RpwXm71PFhbOC9gQIMsVy_ymv1lk_tCZ2p5sHoES1RP6_p8_eiFitlUggqLM1jaaA1MBkQlgaCKJY_Zb0";
+export const VAPID_KEY = process.env.VAPID_PUBLIC_KEY || "";
 
 // Initialize Firebase Admin if not already initialized
 let messaging: admin.messaging.Messaging | null = null;

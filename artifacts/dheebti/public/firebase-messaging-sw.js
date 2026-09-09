@@ -5,14 +5,9 @@ importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js
 importScripts('https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js');
 
 // Firebase configuration - zabihte project
-firebase.initializeApp({
-  apiKey: "AIzaSyBdNnIO4o1apFPBo8IaSYVHUuKKLtJ3Ln0",
-  authDomain: "zabihte.firebaseapp.com",
-  projectId: "zabihte",
-  storageBucket: "zabihte.firebasestorage.app",
-  messagingSenderId: "57398094197",
-  appId: "1:57398094197:web:944c6d0482009f48b0cb3c"
-});
+// Firebase configuration is injected during the frontend build from environment variables.
+const firebaseConfig = __FIREBASE_CONFIG__;
+firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
